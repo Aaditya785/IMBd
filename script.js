@@ -4,6 +4,7 @@ const main = document.getElementById("main");
 const resultGrid = document.getElementById("result-grid");
 const movies = document.getElementById("movies");
 const navHome = document.getElementById("navSpanHome");
+const favoriteMovie = document.getElementById("favoriteMovie");
 const container = document.getElementById("Container");
 
 navHome.classList.add("hide-search-list");
@@ -125,12 +126,13 @@ function displayMovieDetails(details) {
 // random movies
 var res = 0,
   error = 0;
+let clicked = false;
 
 async function loadMovie() {
   for (let i = 0; i <= slidesID.length; i++) {
     var id = slidesID[i];
     const URL = `https://www.omdbapi.com/?i=${id}&apikey=1613435a`;
-    console.log(slidesID[i]);
+
     const res = await fetch(`${URL}`);
     const data = await res.json();
     if (
@@ -139,13 +141,14 @@ async function loadMovie() {
       data.Type == "movie"
     ) {
       // console.log( 'This is just Try', data);
-      let div = document.createElement("div");
+      var div = document.createElement("div");
+
       div.classList.add("movie");
-      // let key = 1;
+
       div.innerHTML = ` 
             <img src="${data.Poster}" alt="movie">
   
-  <div class="favorite" onclick="localStorage.setItem('${data.Title}','${data.imdbID}')" >Add To Favorite</div>
+  <button class="favorite" id="favorite" onClick=addTofavorites('${id}') >Add To Favorite</button>
           <p>
             <h3 class="h3"> ${data.Title} </h3> <br/>
             <h5 class="h5">Year: ${data.Year} </h5>  
@@ -155,7 +158,7 @@ async function loadMovie() {
       movies.appendChild(div);
     }
   }
-} 
+}
 
 loadMovie();
 
@@ -166,8 +169,27 @@ function displayHome() {
 }
 
 // set localStorage
-function funClick(value){
-  console.log("Here",value); 
+async function addTofavorites(id) {
+  let value = id;
+
+  let favBtns = document.querySelectorAll(".favorite");
+
+  for (let i = 0; i < favBtns.length; i++) {
+    favBtns[i].addEventListener("click", (event) => {
+      event.stopImmediatePropagation();
+      alert("Added To Favorite");
+
+      favBtns[i].setAttribute("disabled", "");
+      favBtns[i].style.cursor = "not-allowed";
+
+      let key = Math.random().toString(36).slice(2, 7);
+
+      localStorage.setItem(key, value);
+
+      //adding to favorite div
+      displayFavMovies();
+    });
+  }
 }
 
 
@@ -175,8 +197,26 @@ function funClick(value){
 
 
 
+async function displayFavMovies(){
+  
+
+  
+  // traversing over all the movies in the localstorage
+ 
+}
+
+function removeLocal(){
+  localStorage.clear();
+}
 
 
+
+
+
+async function loadFavoriteMovies() {
+  main.classList.add("hide-search-list");
+  navHome.classList.remove("hide-search-list");
+}
 
 // slides
 
@@ -184,7 +224,6 @@ let slideIndex = 1;
 function showSlides(n) {
   let i;
   let slides = document.getElementsByClassName("allSlides");
-  let dots = document.getElementsByClassName("dot");
   if (n > slides.length) {
     slideIndex = 1;
   }

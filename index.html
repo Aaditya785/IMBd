@@ -27,13 +27,13 @@
 
         <div class="nav">
           <span id="navSpanHome" onclick="displayHome()">Home</span>
-          <span onclick="displayFav">Favorite</span>
+          <span onclick="loadFavoriteMovies()">Favorite</span>
         </div>
       </div>
       <hr />
     </header>
 
-    <main  id="main">
+    <main id="main">
       <div class="slideshow-container">
         <div class="allSlides fade">
           <img src="./pics/1.jpg" style="width: 100%" />
@@ -79,9 +79,10 @@
       </div>
     </main>
 
-
+  
+<!-- style="display: none" -->
     <!-- result container -->
-    <div style="display: none" class="container" id="Container">
+    <div  class="container" id="Container">
       <div class="result-container">
         <div class="result-grid" id="result-grid">
           <!-- movie information here -->
