@@ -3,11 +3,50 @@ const searchList = document.getElementById("search-list");
 const main = document.getElementById("main");
 const resultGrid = document.getElementById("result-grid");
 const movies = document.getElementById("movies");
-const navHome = document.getElementById("navSpanHome");
 const favoriteMovie = document.getElementById("favoriteMovie");
 const container = document.getElementById("Container");
+const favContainer = document.getElementById("favContainer");
+const navHome = document.getElementById("navSpanHome");
 
-navHome.classList.add("hide-search-list");
+function displayMain() {
+  favContainer.style.display = "none";
+  main.style.display = "block";
+}
+
+async function displayFav() {
+  favContainer.innerHTML = " ";
+  for (const i in localStorage) {
+    // console.log(i);
+    let id = localStorage.getItem(i);
+    console.log(id);
+    // if(id !== null){}
+    let URL = `https://www.omdbapi.com/?i=${id}&apikey=1613435a`;
+    let res = await fetch(`${URL}`);
+    let data = await res.json();
+    
+
+    if (id !== null) {
+      // favContainer.innerHTML += `${id} </br> `;
+      
+      favContainer.innerHTML += ` 
+    <img src="${data.Poster}" alt="movie">
+  <p>
+    <h3 class="h3"> ${data.Title} </h3> <br/>
+    <h5 class="h5">Year: ${data.Year} </h5>  
+    <h5 class="h5">Rating: ${data.imdbRating} </h5>
+  </p>
+    `;
+    }
+  }
+
+  favContainer.style.backgroundColor = "#fff";
+  favContainer.style.display = "flex";
+}
+
+function hideMain() {
+  console.log("Main Element Hideed");
+  main.style.display = "none";
+}
 
 const slidesID = [
   "tt12844910",
@@ -37,13 +76,14 @@ const slidesID = [
   "tt1457767",
 ];
 
+// -------------------> Search_List Logic
 function findMovies() {
   let searchTerm = movieSearchBox.value.trim();
   if (searchTerm.length > 0) {
-    searchList.classList.remove("hide-search-list");
+    searchList.classList.remove("hide-it");
     loadMovies(searchTerm);
   } else {
-    searchList.classList.add("hide-search-list");
+    searchList.classList.add("hide-it");
   }
 }
 
@@ -82,9 +122,9 @@ async function loadMovieDetails() {
   const searchListMovies = searchList.querySelectorAll(".search-list-item");
   searchListMovies.forEach((movie) => {
     movie.addEventListener("click", async () => {
-      searchList.classList.add("hide-search-list");
-      main.classList.add("hide-search-list");
-      navHome.classList.remove("hide-search-list");
+      searchList.classList.add("hide-it");
+      main.classList.add("hide-it");
+      navHome.classList.remove("hide-it");
       movieSearchBox.vaue = "";
       const result = await fetch(
         `https://omdbapi.com/?i=${movie.dataset.id}&apikey=1613435a`
@@ -122,8 +162,9 @@ function displayMovieDetails(details) {
   </div>
   `;
 }
+// -------------------> End of Search_List Logic
 
-// random movies
+// -------------------> Random Movies (Landing Page)
 var res = 0,
   error = 0;
 let clicked = false;
@@ -148,7 +189,7 @@ async function loadMovie() {
       div.innerHTML = ` 
             <img src="${data.Poster}" alt="movie">
   
-  <button class="favorite" id="favorite" onClick=addTofavorites('${id}') >Add To Favorite</button>
+  <button class="favorite" id="favorite" onMouseDown="setGetLocal('${id}')" onClick="addTofavorites()" >Add To Favorite</button>
           <p>
             <h3 class="h3"> ${data.Title} </h3> <br/>
             <h5 class="h5">Year: ${data.Year} </h5>  
@@ -159,63 +200,45 @@ async function loadMovie() {
     }
   }
 }
-
 loadMovie();
+// -------------------> End of Random Movies
 
-function displayHome() {
-  main.classList.remove("hide-search-list");
-  navHome.classList.add("hide-search-list");
-  container.style.display = "none";
-}
+// -------------------> Hideing The nav element
+function displayHome() {}
+// ------------------->-------------------
 
-// set localStorage
-async function addTofavorites(id) {
-  let value = id;
-
+// -------------------> Setting The LocalStorage Logic (Favorite)
+function addTofavorites() {
+  
   let favBtns = document.querySelectorAll(".favorite");
-
+  
   for (let i = 0; i < favBtns.length; i++) {
     favBtns[i].addEventListener("click", (event) => {
       event.stopImmediatePropagation();
       alert("Added To Favorite");
-
+      
       favBtns[i].setAttribute("disabled", "");
       favBtns[i].style.cursor = "not-allowed";
-
-      let key = Math.random().toString(36).slice(2, 7);
-
-      localStorage.setItem(key, value);
-
+      
+      
       //adding to favorite div
-      displayFavMovies();
     });
   }
 }
 
+function setGetLocal(id){
+  let key = Math.random().toString(36).slice(2, 7);
+      let value = id;
 
-
-
-
-
-async function displayFavMovies(){
-  
-
-  
-  // traversing over all the movies in the localstorage
- 
+      localStorage.setItem(key, value);
+      console.log(localStorage.getItem(key));
 }
-
-function removeLocal(){
-  localStorage.clear();
-}
-
 
 
 
 
 async function loadFavoriteMovies() {
-  main.classList.add("hide-search-list");
-  navHome.classList.remove("hide-search-list");
+  navHome.classList.remove("hide-it");
 }
 
 // slides
@@ -256,6 +279,6 @@ setInterval(function () {
 
 window.addEventListener("click", (event) => {
   if (event.target.className != "form-control") {
-    searchList.classList.add("hide-search-list");
+    searchList.classList.add("hide-it");
   }
 });

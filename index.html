@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+
     <header>
       <div class="search-container display-flex">
         <div class="search-element">
@@ -26,14 +27,14 @@
         </div>
 
         <div class="nav">
-          <span id="navSpanHome" onclick="displayHome()">Home</span>
-          <span onclick="loadFavoriteMovies()">Favorite</span>
+          <span id="navSpanHome" onclick="displayMain()" >Home</span>
+          <span onmousedown="displayFav()" onclick="hideMain()" >Favorite</span>
         </div>
       </div>
       <hr />
     </header>
 
-    <main id="main">
+    <main  id="main">
       <div class="slideshow-container">
         <div class="allSlides fade">
           <img src="./pics/1.jpg" style="width: 100%" />
@@ -79,9 +80,7 @@
       </div>
     </main>
 
-  
-<!-- style="display: none" -->
-    <!-- result container -->
+    <!-- result container --> <!-- style="display: none" -->
     <div  class="container" id="Container">
       <div class="result-container">
         <div class="result-grid" id="result-grid">
@@ -90,6 +89,10 @@
       </div>
     </div>
     <!-- end of result container -->
+
+    <div id="favContainer" class="favContainer">
+
+    </div>
 
     <script src="script.js"></script>
   </body>

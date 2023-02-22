@@ -73,6 +73,7 @@ body::-webkit-scrollbar-thumb {
   outline: none;
   width: 15rem;
   margin-left: 30px;
+  padding-left: 5px;
 }
 .search-list {
   position: absolute;
@@ -124,7 +125,7 @@ body::-webkit-scrollbar-thumb {
   border-radius: 10px;
 }
 
-.hide-search-list {
+.hide-it {
   display: none;
 }
 #main {
@@ -168,6 +169,10 @@ body::-webkit-scrollbar-thumb {
   margin-top: 100px;
   background-color: #fff;
 }
+
+
+
+
 .allSlides {
   display: none;
 }
