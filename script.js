@@ -11,9 +11,12 @@ const navHome = document.getElementById("navSpanHome");
 function displayMain() {
   favContainer.style.display = "none";
   main.style.display = "block";
+  container.innerHTML = " ";
+  window.location.reload('main');
 }
 
 async function displayFav() {
+  
   favContainer.innerHTML = " ";
   for (const i in localStorage) {
     // console.log(i);
@@ -27,8 +30,11 @@ async function displayFav() {
 
     if (id !== null) {
       // favContainer.innerHTML += `${id} </br> `;
-      
-      favContainer.innerHTML += ` 
+      let div = document.createElement("div");
+
+    div.classList.add("movie");
+
+      div.innerHTML = ` 
     <img src="${data.Poster}" alt="movie">
   <p>
     <h3 class="h3"> ${data.Title} </h3> <br/>
@@ -36,16 +42,16 @@ async function displayFav() {
     <h5 class="h5">Rating: ${data.imdbRating} </h5>
   </p>
     `;
+    favContainer.appendChild(div);
     }
   }
 
-  favContainer.style.backgroundColor = "#fff";
-  favContainer.style.display = "flex";
+
 }
 
 function hideMain() {
-  console.log("Main Element Hideed");
   main.style.display = "none";
+  favContainer.style.display = "flex";
 }
 
 const slidesID = [
@@ -76,7 +82,7 @@ const slidesID = [
   "tt1457767",
 ];
 
-// -------------------> Search_List Logic
+//  Search_List Logic
 function findMovies() {
   let searchTerm = movieSearchBox.value.trim();
   if (searchTerm.length > 0) {
@@ -95,13 +101,13 @@ async function loadMovies(searchTerm) {
   if (data.Response == "True") displayMovieList(data.Search);
 }
 
-function displayMovieList(movies) {
+function displayMovieList(movies_list) {
   searchList.innerHTML = "";
-  for (let idx = 0; idx < movies.length; idx++) {
+  for (let idx = 0; idx < movies_list.length; idx++) {
     let movieListItem = document.createElement("div");
-    movieListItem.dataset.id = movies[idx].imdbID; // setting movie id in  data-id
+    movieListItem.dataset.id = movies_list[idx].imdbID; // setting movie id in  data-id
     movieListItem.classList.add("search-list-item");
-    if (movies[idx].Poster != "N/A") moviePoster = movies[idx].Poster;
+    if (movies_list[idx].Poster != "N/A") moviePoster = movies_list[idx].Poster;
     else moviePoster = "image_not_found.png";
 
     movieListItem.innerHTML = `
@@ -109,8 +115,8 @@ function displayMovieList(movies) {
           <img src = "${moviePoster}">
       </div>
       <div class = "search-item-info">
-          <h3>${movies[idx].Title}</h3>
-          <p>${movies[idx].Year}</p>
+          <h3>${movies_list[idx].Title}</h3>
+          <p>${movies_list[idx].Year}</p>
       </div>
       `;
     searchList.appendChild(movieListItem);
@@ -125,7 +131,7 @@ async function loadMovieDetails() {
       searchList.classList.add("hide-it");
       main.classList.add("hide-it");
       navHome.classList.remove("hide-it");
-      movieSearchBox.vaue = "";
+      movieSearchBox.value = "";
       const result = await fetch(
         `https://omdbapi.com/?i=${movie.dataset.id}&apikey=1613435a`
       );
@@ -162,13 +168,10 @@ function displayMovieDetails(details) {
   </div>
   `;
 }
-// -------------------> End of Search_List Logic
+//  End of Search_List Logic
 
-// -------------------> Random Movies (Landing Page)
-var res = 0,
-  error = 0;
-let clicked = false;
 
+//  Random Movies (Landing Page)
 async function loadMovie() {
   for (let i = 0; i <= slidesID.length; i++) {
     var id = slidesID[i];
@@ -183,31 +186,46 @@ async function loadMovie() {
     ) {
       // console.log( 'This is just Try', data);
       var div = document.createElement("div");
+      div.dataset.id = data.imdbID; // setting movie id in  data-id
 
       div.classList.add("movie");
+      div.classList.add("movie-brief-display");
 
+      div.setAttribute("onclick", "displaymovie(dataset.id)");
+      
       div.innerHTML = ` 
-            <img src="${data.Poster}" alt="movie">
-  
-  <button class="favorite" id="favorite" onMouseDown="setGetLocal('${id}')" onClick="addTofavorites()" >Add To Favorite</button>
-          <p>
-            <h3 class="h3"> ${data.Title} </h3> <br/>
-            <h5 class="h5">Year: ${data.Year} </h5>  
-            <h5 class="h5">Rating: ${data.imdbRating} </h5>
-          </p>
-            `;
+      <img src="${data.Poster}" alt="movie">
+      
+      <button class="favorite" id="favorite" onMouseDown="setGetLocal('${id}')" onClick="addTofavorites()" >Add To Favorite</button>
+      <p>
+      <h3 class="h3"> ${data.Title} </h3> <br/>
+      <h5 class="h5">Year: ${data.Year} </h5>  
+      <h5 class="h5">Rating: ${data.imdbRating} </h5>
+      </p>
+      `;
       movies.appendChild(div);
     }
   }
 }
 loadMovie();
-// -------------------> End of Random Movies
 
-// -------------------> Hideing The nav element
-function displayHome() {}
-// ------------------->-------------------
+async function displaymovie(res){
+  console.log("hello",res);
+  // searchList.classList.add("hide-it");
+      main.classList.add("hide-it");
+      navHome.classList.remove("hide-it");
+  const result1 = await fetch(
+    `https://omdbapi.com/?i=${res}&apikey=1613435a`
+  );
+  const movieDetails = await result1.json();
 
-// -------------------> Setting The LocalStorage Logic (Favorite)
+  displayMovieDetails(movieDetails);
+}
+//  End of Random Movies
+
+
+
+//  Setting The LocalStorage Logic (Favorite)
 function addTofavorites() {
   
   let favBtns = document.querySelectorAll(".favorite");
@@ -232,13 +250,6 @@ function setGetLocal(id){
 
       localStorage.setItem(key, value);
       console.log(localStorage.getItem(key));
-}
-
-
-
-
-async function loadFavoriteMovies() {
-  navHome.classList.remove("hide-it");
 }
 
 // slides
