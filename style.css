@@ -3,6 +3,7 @@
   padding: 0%;
   margin: 0%;
 }
+/* For Body Tags  */
 body {
   background-color: black;
   font-family: "Alegreya", serif;
@@ -18,15 +19,34 @@ body::-webkit-scrollbar-thumb {
   border-radius: 10px;
 }
 
+/* ------------------ For Search List (Header) ------------------ */
+.search-container {
+  background-color: gray;
+  height: 50px;
+  display: flex;
+  position: fixed;
+  z-index: 9; 
+  width: 100%;
+}
+.search-element {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+}
+.display-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
 #suggestions-list {
   /* display: none; */
   position: absolute;
   overflow-y: scroll;
   height: 30rem;
-}
-.display-flex {
-  display: flex;
-  justify-content: space-between;
 }
 .nav {
   width: 20%;
@@ -43,29 +63,7 @@ body::-webkit-scrollbar-thumb {
   color: #fff;
   cursor: pointer;
 }
-.search-container {
-  background-color: gray;
-  height: 50px;
-  display: flex;
-  position: fixed;
-  z-index: 9;
-  width: 100%;
-}
-.search-element {
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  flex-direction: column;
-  position: relative;
-}
-.search-element h3 {
-  align-self: center;
-  margin-right: 1rem;
-  font-size: 2rem;
-  color: #fff;
-  font-weight: 500;
-  margin-bottom: 1.5rem;
-}
+
 .search-element .form-control {
   height: 1.4rem;
   border: none;
@@ -131,6 +129,7 @@ body::-webkit-scrollbar-thumb {
 #main {
   margin-top: 3.1rem;
 }
+
 #movies {
   height: 100%;
   width: auto;
@@ -145,7 +144,7 @@ body::-webkit-scrollbar-thumb {
   border-radius: 10px;
 }
 .movie img {
-  height: 70%;
+  height: 60%;
   width: 100%;
   border-radius: 10px;
 }
@@ -155,7 +154,6 @@ body::-webkit-scrollbar-thumb {
   background-color: #342f2f;
   display: block;
   border-radius: 5px;
-  width: 100%;
   margin: auto;
 }
 .favorite:hover{
@@ -172,6 +170,10 @@ body::-webkit-scrollbar-thumb {
   justify-content: center;
 }
 
+#removeFav{
+  background-color: yellow;
+  width: -webkit-fill-available;
+}
 
 
 
@@ -216,7 +218,7 @@ body::-webkit-scrollbar-thumb {
   background-color: black;
   margin-top: 3.1rem;
 }
-.result-grid {
+.result-flex {
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -1,88 +1,70 @@
 const movieSearchBox = document.getElementById("movie-search-box");
 const searchList = document.getElementById("search-list");
 const main = document.getElementById("main");
-const resultGrid = document.getElementById("result-grid");
+const resultFlex = document.getElementById("result-flex");
 const movies = document.getElementById("movies");
 const favoriteMovie = document.getElementById("favoriteMovie");
 const container = document.getElementById("Container");
 const favContainer = document.getElementById("favContainer");
-const navHome = document.getElementById("navSpanHome");
 
+const slidesID = [ "tt12844910","tt1745960","tt11851548","tt8041270","tt1287845","tt7349950","tt6806448","tt4154796","tt1877830","tt1431045","tt6443346","tt8108274","tt8291224","tt9052960","tt7784604","tt9114286","tt10872600","tt9389998","tt5954088","tt0800080","tt15474916","tt2752772","tt10954652","tt0070047","tt1457767",];
+
+// navBar Items started
 function displayMain() {
   favContainer.style.display = "none";
-  main.style.display = "block";
   container.innerHTML = " ";
   window.location.reload('main');
 }
 
 async function displayFav() {
-  
   favContainer.innerHTML = " ";
-  for (const i in localStorage) {
-    // console.log(i);
-    let id = localStorage.getItem(i);
-    console.log(id);
-    // if(id !== null){}
-    let URL = `https://www.omdbapi.com/?i=${id}&apikey=1613435a`;
-    let res = await fetch(`${URL}`);
-    let data = await res.json();
-    
+  favContainer.innerHTML = `
+  <button id="removeFav" onClick="removeFav()" >Clear Favorites</button>
+  `;
+  
+  var IDd = new Set();
+  for (const i in localStorage) 
+  {
+    IDd.add(localStorage.getItem(i));
+  }
 
-    if (id !== null) {
-      // favContainer.innerHTML += `${id} </br> `;
-      let div = document.createElement("div");
+  for (const i of IDd.values()) 
+  {
+    if (i !== null) {
 
-    div.classList.add("movie");
+      let URL = `https://www.omdbapi.com/?i=${i}&apikey=1613435a`;
+      let res = await fetch(`${URL}`);
+      let data = await res.json();
 
-      div.innerHTML = ` 
+          let div = document.createElement("div");
+          div.classList.add("movie");
+          div.innerHTML = ` 
     <img src="${data.Poster}" alt="movie">
   <p>
-    <h3 class="h3"> ${data.Title} </h3> <br/>
+    <hr/><h3 class="h3"> ${data.Title} </h3> <hr/>   
     <h5 class="h5">Year: ${data.Year} </h5>  
     <h5 class="h5">Rating: ${data.imdbRating} </h5>
   </p>
     `;
-    favContainer.appendChild(div);
-    }
+          favContainer.appendChild(div);
+      }
   }
+}
 
-
+function removeFav(){
+  localStorage.clear();
+  window.location.reload();
 }
 
 function hideMain() {
   main.style.display = "none";
   favContainer.style.display = "flex";
+  resultFlex.style.display = "none";
+  displayFav();
 }
+// end of navBar Items
 
-const slidesID = [
-  "tt12844910",
-  "tt1745960",
-  "tt11851548",
-  "tt8041270",
-  "tt1287845",
-  "tt7349950",
-  "tt6806448",
-  "tt4154796",
-  "tt1877830",
-  "tt1431045",
-  "tt6443346",
-  "tt8108274",
-  "tt8291224",
-  "tt9052960",
-  "tt7784604",
-  "tt9114286",
-  "tt10872600",
-  "tt9389998",
-  "tt5954088",
-  "tt0800080",
-  "tt15474916",
-  "tt2752772",
-  "tt10954652",
-  "tt0070047",
-  "tt1457767",
-];
-
-//  Search_List Logic
+//  Startin of Search_List Logic
 function findMovies() {
   let searchTerm = movieSearchBox.value.trim();
   if (searchTerm.length > 0) {
@@ -130,7 +112,6 @@ async function loadMovieDetails() {
     movie.addEventListener("click", async () => {
       searchList.classList.add("hide-it");
       main.classList.add("hide-it");
-      navHome.classList.remove("hide-it");
       movieSearchBox.value = "";
       const result = await fetch(
         `https://omdbapi.com/?i=${movie.dataset.id}&apikey=1613435a`
@@ -143,15 +124,16 @@ async function loadMovieDetails() {
 }
 
 function displayMovieDetails(details) {
-  console.log(details);
-  resultGrid.innerHTML = `
+  resultFlex.innerHTML = `
   <div class = "movie-poster">
       <img src = "${
         details.Poster != "N/A" ? details.Poster : "image_not_found.png"
       }" alt = "movie poster">
   </div>
+  <button style="width: 200px; height: 25px; transition: all 0.3s ease-in-out;
+  " class="favorite" id="favorite" onClick="setGetLocal('${details.imdbID}')"  >Add To Favorite</button>
   <div class = "movie-info">
-      <h3 class = "movie-title">${details.Title}</h3>
+  <hr/><h3 class = "movie-title">${details.Title}</h3><hr/>
       <ul class = "movie-misc-info">
           <li class = "year">Year: ${details.Year}</li>
           <li class = "rated">Ratings: ${details.Rated}</li>
@@ -162,43 +144,31 @@ function displayMovieDetails(details) {
       <p class = "actors"><b>Actors: </b>${details.Actors}</p>
       <p class = "plot"><b>Plot:</b> ${details.Plot}</p>
       <p class = "language"><b>Language:</b> ${details.Language}</p>
-      <p class = "awards"><b><i class = "fas fa-award"></i></b> ${
-        details.Awards
-      }</p>
+      <p class = "awards"><b><i class = "fas fa-award"></i></b> ${details.Awards}</p>
   </div>
   `;
 }
 //  End of Search_List Logic
 
-
 //  Random Movies (Landing Page)
 async function loadMovie() {
-  for (let i = 0; i <= slidesID.length; i++) {
+  for (let i = 0; i <= slidesID.length; i++) 
+  {
     var id = slidesID[i];
-    const URL = `https://www.omdbapi.com/?i=${id}&apikey=1613435a`;
-
-    const res = await fetch(`${URL}`);
+    const res = await fetch(`https://www.omdbapi.com/?i=${id}&apikey=1613435a`);
     const data = await res.json();
-    if (
-      data.Response !== "False" &&
-      data.Poster !== "N/A" &&
-      data.Type == "movie"
-    ) {
-      // console.log( 'This is just Try', data);
+    if ( data.Response !== "False" && data.Poster !== "N/A" && data.Type == "movie")
+    {
       var div = document.createElement("div");
       div.dataset.id = data.imdbID; // setting movie id in  data-id
-
       div.classList.add("movie");
       div.classList.add("movie-brief-display");
-
       div.setAttribute("onclick", "displaymovie(dataset.id)");
       
       div.innerHTML = ` 
       <img src="${data.Poster}" alt="movie">
-      
-      <button class="favorite" id="favorite" onMouseDown="setGetLocal('${id}')" onClick="addTofavorites()" >Add To Favorite</button>
       <p>
-      <h3 class="h3"> ${data.Title} </h3> <br/>
+      <hr/><h3 class="h3"> ${data.Title} </h3>  <hr/>
       <h5 class="h5">Year: ${data.Year} </h5>  
       <h5 class="h5">Rating: ${data.imdbRating} </h5>
       </p>
@@ -210,49 +180,27 @@ async function loadMovie() {
 loadMovie();
 
 async function displaymovie(res){
-  console.log("hello",res);
-  // searchList.classList.add("hide-it");
-      main.classList.add("hide-it");
-      navHome.classList.remove("hide-it");
-  const result1 = await fetch(
-    `https://omdbapi.com/?i=${res}&apikey=1613435a`
-  );
+  main.classList.add("hide-it");
+  const result1 = await fetch(`https://omdbapi.com/?i=${res}&apikey=1613435a`);
   const movieDetails = await result1.json();
-
   displayMovieDetails(movieDetails);
 }
 //  End of Random Movies
 
 
-
 //  Setting The LocalStorage Logic (Favorite)
 function addTofavorites() {
-  
-  let favBtns = document.querySelectorAll(".favorite");
-  
-  for (let i = 0; i < favBtns.length; i++) {
-    favBtns[i].addEventListener("click", (event) => {
-      event.stopImmediatePropagation();
-      alert("Added To Favorite");
-      
-      favBtns[i].setAttribute("disabled", "");
-      favBtns[i].style.cursor = "not-allowed";
-      
-      
-      //adding to favorite div
-    });
-  }
+  let favBtns = document.querySelector(".favorite");
+  favBtns.setAttribute("disabled", "");
+  favBtns.style.cursor = "not-allowed";
 }
 
 function setGetLocal(id){
-  let key = Math.random().toString(36).slice(2, 7);
-      let value = id;
-
-      localStorage.setItem(key, value);
-      console.log(localStorage.getItem(key));
+      localStorage.setItem(Math.random().toString(36).slice(2, 7), id);
+      addTofavorites();
 }
 
-// slides
+// Carousel Slide
 
 let slideIndex = 1;
 function showSlides(n) {
@@ -280,14 +228,11 @@ function changeSlides(n) {
   showSlides((slideIndex += n));
 }
 
-function currentSlide(n) {
-  showSlides((slideIndex = n));
-}
-
 setInterval(function () {
   changeSlides(1);
 }, 3000);
 
+// On Click outside the element hide - it
 window.addEventListener("click", (event) => {
   if (event.target.className != "form-control") {
     searchList.classList.add("hide-it");
