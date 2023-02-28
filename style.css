@@ -242,6 +242,7 @@ body::-webkit-scrollbar-thumb {
 
 .movie-brief-display{
   cursor: pointer;
+  text-align: center;
 }
 .movie-brief-display:hover{
   box-shadow: 0px 0px 10px #fff;

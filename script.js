@@ -41,9 +41,7 @@ async function displayFav() {
           div.innerHTML = ` 
     <img src="${data.Poster}" alt="movie">
   <p>
-    <hr/><h3 class="h3"> ${data.Title} </h3> <hr/>   
-    <h5 class="h5">Year: ${data.Year} </h5>  
-    <h5 class="h5">Rating: ${data.imdbRating} </h5>
+    <hr/><h3 style="text-align: center;" class="h3"> ${data.Title} </h3> 
   </p>
     `;
           favContainer.appendChild(div);
@@ -131,7 +129,7 @@ function displayMovieDetails(details) {
       }" alt = "movie poster">
   </div>
   <button style="width: 200px; height: 25px; transition: all 0.3s ease-in-out;
-  " class="favorite" id="favorite" onClick="setGetLocal('${details.imdbID}')"  >Add To Favorite</button>
+  " class="favorite" id="favorite" onClick="setGetLocal('${details.Title}', '${details.imdbID}')"  >Add To Favorite</button>
   <div class = "movie-info">
   <hr/><h3 class = "movie-title">${details.Title}</h3><hr/>
       <ul class = "movie-misc-info">
@@ -195,9 +193,14 @@ function addTofavorites() {
   favBtns.style.cursor = "not-allowed";
 }
 
-function setGetLocal(id){
-      localStorage.setItem(Math.random().toString(36).slice(2, 7), id);
-      addTofavorites();
+function setGetLocal(name, id){
+  if(localStorage.getItem(name) == id){
+      alert("\u2716 Already There!...");
+  }else{
+      localStorage.setItem(name, id);
+      alert("\u2714 Added Successfully!...");
+  }
+  addTofavorites();
 }
 
 // Carousel Slide
