@@ -18,10 +18,7 @@ function displayMain() {
 
 async function displayFav() {
   favContainer.innerHTML = " ";
-  favContainer.innerHTML = `
-  <button id="removeFav" onClick="removeFav()" >Clear Favorites</button>
-  `;
-  
+
   var IDd = new Set();
   for (const i in localStorage) 
   {
@@ -37,9 +34,11 @@ async function displayFav() {
       let data = await res.json();
 
           let div = document.createElement("div");
+          
           div.classList.add("movie");
           div.innerHTML = ` 
     <img src="${data.Poster}" alt="movie">
+    <button id="removeEachFav" onClick="removeFav('${data.Title}')" >Remove Favorite</button>
   <p>
     <hr/><h3 style="text-align: center;" class="h3"> ${data.Title} </h3> 
   </p>
@@ -49,8 +48,10 @@ async function displayFav() {
   }
 }
 
-function removeFav(){
-  localStorage.clear();
+function removeFav(key){
+  localStorage.removeItem(key);
+  alert("\u2714 Removed From List!...")
+  
   window.location.reload();
 }
 
@@ -166,7 +167,7 @@ async function loadMovie() {
       div.innerHTML = ` 
       <img src="${data.Poster}" alt="movie">
       <p>
-      <hr/><h3 class="h3"> ${data.Title} </h3>  <hr/>
+      <hr/><h3 class="h3"> ${data.Title} </h3>  <hr/></br>
       <h5 class="h5">Year: ${data.Year} </h5>  
       <h5 class="h5">Rating: ${data.imdbRating} </h5>
       </p>

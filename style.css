@@ -1,8 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;600&family=Inter:wght@100;200;300&display=swap");
+
 * {
   padding: 0%;
   margin: 0%;
 }
+
 /* For Body Tags  */
 body {
   background-color: black;
@@ -25,9 +27,10 @@ body::-webkit-scrollbar-thumb {
   height: 50px;
   display: flex;
   position: fixed;
-  z-index: 9; 
+  z-index: 9;
   width: 100%;
 }
+
 .search-element {
   display: flex;
   align-items: stretch;
@@ -35,6 +38,7 @@ body::-webkit-scrollbar-thumb {
   flex-direction: column;
   position: relative;
 }
+
 .display-flex {
   display: flex;
   justify-content: space-between;
@@ -48,6 +52,7 @@ body::-webkit-scrollbar-thumb {
   overflow-y: scroll;
   height: 30rem;
 }
+
 .nav {
   width: 20%;
   display: flex;
@@ -55,10 +60,12 @@ body::-webkit-scrollbar-thumb {
   align-items: center;
   font-size: 1.5rem;
 }
+
 .nav span {
   text-decoration: none;
   color: black;
 }
+
 .nav span:hover {
   color: #fff;
   cursor: pointer;
@@ -73,6 +80,7 @@ body::-webkit-scrollbar-thumb {
   margin-left: 30px;
   padding-left: 5px;
 }
+
 .search-list {
   position: absolute;
   top: 100%;
@@ -80,6 +88,7 @@ body::-webkit-scrollbar-thumb {
   overflow-y: scroll;
   z-index: 10;
 }
+
 .search-list .search-list-item {
   background-color: gray;
   padding: 0.5rem;
@@ -89,21 +98,26 @@ body::-webkit-scrollbar-thumb {
   cursor: pointer;
   transition: background-color 200ms ease;
 }
+
 .search-list .search-list-item:hover {
   background-color: #1f1f1f;
 }
+
 .search-list-item {
   display: flex;
   align-items: center;
 }
+
 .search-item-thumbnail img {
   width: 40px;
   margin-right: 1rem;
 }
+
 .search-item-info h3 {
   font-weight: 600;
   font-size: 1rem;
 }
+
 .search-item-info p {
   font-size: 0.8rem;
   margin-top: 0.5rem;
@@ -114,9 +128,11 @@ body::-webkit-scrollbar-thumb {
 .search-list::-webkit-scrollbar {
   width: 8px;
 }
+
 .search-list::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgb(67, 64, 64);
 }
+
 .search-list::-webkit-scrollbar-thumb {
   background-color: #1b1919;
   outline: none;
@@ -126,6 +142,7 @@ body::-webkit-scrollbar-thumb {
 .hide-it {
   display: none;
 }
+
 #main {
   margin-top: 3.1rem;
 }
@@ -137,17 +154,20 @@ body::-webkit-scrollbar-thumb {
   flex-wrap: wrap;
   justify-content: center;
 }
+
 .movie {
   border: 2px solid #57428d;
   width: 17%;
   margin: 5px;
   border-radius: 10px;
 }
+
 .movie img {
   height: 60%;
   width: 100%;
   border-radius: 10px;
 }
+
 .favorite {
   color: gold;
   text-align: center;
@@ -156,12 +176,14 @@ body::-webkit-scrollbar-thumb {
   border-radius: 5px;
   margin: auto;
 }
-.favorite:hover{
+
+.favorite:hover {
   color: #342f2f;
   background-color: gold;
   font-weight: bolder;
   cursor: pointer;
 }
+
 .favContainer {
   height: 100%;
   width: auto;
@@ -170,23 +192,33 @@ body::-webkit-scrollbar-thumb {
   justify-content: center;
 }
 
-#removeFav{
+#removeFav {
   background-color: yellow;
   width: -webkit-fill-available;
 }
 
+#removeEachFav {
+  background-color: yellow;
+  cursor: pointer;
+  width: 100%;
+  height: 6%;
+  border-radius: 10px;
+}
 
 
 .allSlides {
   display: none;
 }
+
 .h3,
 .h5 {
   color: #fff;
 }
+
 .slideshow-container {
   position: relative;
 }
+
 .prev,
 .next {
   cursor: pointer;
@@ -202,14 +234,17 @@ body::-webkit-scrollbar-thumb {
   border-radius: 0 3px 3px 0;
   user-select: none;
 }
+
 .next {
   right: 0;
   border-radius: 3px 0 0 3px;
 }
+
 .prev:hover,
 .next:hover {
   background-color: rgba(0, 0, 0, 0.659);
 }
+
 .container {
   display: flex;
   flex-direction: column;
@@ -218,32 +253,38 @@ body::-webkit-scrollbar-thumb {
   background-color: black;
   margin-top: 3.1rem;
 }
+
 .result-flex {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
 .movie-info {
   text-align: center;
   font-size: 20px;
   color: #fff;
   width: 50%;
 }
+
 .movie-misc-info li {
   list-style: none;
 }
+
 .movie-title {
   font-size: 35px;
 }
+
 .movie-info p b {
   color: gold;
 }
 
-.movie-brief-display{
+.movie-brief-display {
   cursor: pointer;
   text-align: center;
 }
-.movie-brief-display:hover{
+
+.movie-brief-display:hover {
   box-shadow: 0px 0px 10px #fff;
 }
