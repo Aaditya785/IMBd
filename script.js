@@ -9,6 +9,38 @@ const favContainer = document.getElementById("favContainer");
 
 const slidesID = [ "tt12844910","tt1745960","tt11851548","tt8041270","tt1287845","tt7349950","tt6806448","tt4154796","tt1877830","tt1431045","tt6443346","tt8108274","tt8291224","tt9052960","tt7784604","tt9114286","tt10872600","tt9389998","tt5954088","tt0800080","tt15474916","tt2752772","tt10954652","tt0070047","tt1457767",];
 
+// SlideShow
+let slideIndex = 1;
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("allSlides");
+  if (n > slides.length) {
+    slideIndex = 1;
+  }
+  if (n < 1) {
+    slideIndex = slides.length;
+  }
+
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+    slides[i].className = slides[i].className.replace(" active", "");
+  }
+
+  slides[slideIndex - 1].style.display = "block";
+  slides[slideIndex - 1].className += " active";
+}
+
+showSlides(slideIndex);
+
+function changeSlides(n) {
+  showSlides((slideIndex += n));
+}
+
+setInterval(function () {
+  changeSlides(1);
+}, 3000);
+
+
 // navBar Items started
 function displayMain() {
   favContainer.style.display = "none";
@@ -204,37 +236,6 @@ function setGetLocal(name, id){
   addTofavorites();
 }
 
-// Carousel Slide
-
-let slideIndex = 1;
-function showSlides(n) {
-  let i;
-  let slides = document.getElementsByClassName("allSlides");
-  if (n > slides.length) {
-    slideIndex = 1;
-  }
-  if (n < 1) {
-    slideIndex = slides.length;
-  }
-
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
-    slides[i].className = slides[i].className.replace(" active", "");
-  }
-
-  slides[slideIndex - 1].style.display = "block";
-  slides[slideIndex - 1].className += " active";
-}
-
-showSlides(slideIndex);
-
-function changeSlides(n) {
-  showSlides((slideIndex += n));
-}
-
-setInterval(function () {
-  changeSlides(1);
-}, 3000);
 
 // On Click outside the element hide - it
 window.addEventListener("click", (event) => {
