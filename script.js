@@ -1,5 +1,6 @@
 const movieSearchBox = document.getElementById("movie-search-box");
 const searchList = document.getElementById("search-list");
+const searchElement = document.querySelector(".search-element")
 const main = document.getElementById("main");
 const resultFlex = document.getElementById("result-flex");
 const movies = document.getElementById("movies");
@@ -89,8 +90,8 @@ function removeFav(key){
 
 function hideMain() {
   main.style.display = "none";
-  favContainer.style.display = "flex";
   resultFlex.style.display = "none";
+  searchElement.style.display = "none";
   displayFav();
 }
 // end of navBar Items
