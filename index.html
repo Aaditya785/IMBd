@@ -1,93 +1,106 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>IMBD | Movie App</title>
-    <script
-      src="https://kit.fontawesome.com/bfecba7d44.js"
-      crossorigin="anonymous"
-    ></script>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
 
-    <header>
-      <div class="search-container display-flex">
-        <div class="search-element">
-          <input type="text" class="form-control" placeholder=" &nbsp; Search Movie Title ..." id="movie-search-box" onkeyup="findMovies()" onclick="findMovies()"/>
-          <div class="search-list" id="search-list">
-            <!-- Search list here -->
-          </div>
-        </div>
+<head>
+  <title>IMBD | Movie App</title>
+  <script src="https://kit.fontawesome.com/bfecba7d44.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
-        <div class="nav">
-          <span id="navSpanHome" onclick="displayMain()" >Home</span>
-          <span onclick="hideMain()" >Favorite</span>
+<body>
+
+  <header>
+    <div class="search-container display-flex">
+      <div class="search-element">
+        <input type="text" class="form-control" placeholder=" &nbsp; Search Movie Title ..." id="movie-search-box"
+          onkeyup="findMovies()" onclick="findMovies()" />
+        <div class="search-list" id="search-list">
+          <!-- Search list here -->
         </div>
       </div>
-      <hr />
-    </header>
 
-    <main   id="main">
-        
-      <div class="slideshow-container">
-        <div class="allSlides fade">
-          <img src="./pics/1.jpg" style="width: 100%" />
-        </div>
-
-        <div class="allSlides fade">
-          <img src="./pics/2.jpg" style="width: 100%" />
-        </div>
-
-        <div class="allSlides fade">
-          <img src="./pics/3.jpg" style="width: 100%" />
-        </div>
-
-        <div class="allSlides fade">
-          <img src="./pics/4.jpg" style="width: 100%" />
-        </div>
-
-        <div class="allSlides fade">
-          <img src="./pics/5.jpg" style="width: 100%" />
-        </div>
-
-        <div class="allSlides fade">
-          <img src="./pics/6.jpg" style="width: 100%" />
-        </div>
-
-        <div class="allSlides fade">
-          <img src="./pics/7.jpg" style="width: 100%" />
-        </div>
-
-        <div class="allSlides fade">
-          <img src="./pics/8.jpg" style="width: 100%" />
-        </div>
-        <a class="prev" onclick="changeSlides(-1)">&lt;</a>
-        <a class="next" onclick="changeSlides(1)">&gt;</a>
+      <div style="display: flex; 
+        justify-content: center; 
+        align-items: center;">
+        <div style="background-color: #cbcb33;
+          color: black;
+          font-size: 2rem;
+          border-radius: 10px;
+          font-family: fantasy;
+          padding: 5px;">IMBd</div>
       </div>
 
-      <hr />
-      <h1 style="color: #fff; margin-left: 4rem">Top Picks</h1>
-      <hr />
 
-      <div id="movies">
-        
-      </div>
-    </main>
-
-    <!-- For Result from search list --> 
-    <div  class="container" id="Container">
-      <div class="result-container">
-        <div class="result-flex" id="result-flex">
-          <!-- movie information here -->
-        </div>
+      <div class="nav">
+        <span id="navSpanHome" onclick="displayMain()">Home</span>
+        <span onclick="hideMain()">Favorite</span>
       </div>
     </div>
+    <hr />
+  </header>
 
-    <!-- For Favorite  -->
-    <div id="favContainer" class="favContainer">
+  <main id="main">
 
+    <div class="slideshow-container">
+      <div class="allSlides fade">
+        <img src="./pics/1.jpg" style="width: 100%" />
+      </div>
+
+      <div class="allSlides fade">
+        <img src="./pics/2.jpg" style="width: 100%" />
+      </div>
+
+      <div class="allSlides fade">
+        <img src="./pics/3.jpg" style="width: 100%" />
+      </div>
+
+      <div class="allSlides fade">
+        <img src="./pics/4.jpg" style="width: 100%" />
+      </div>
+
+      <div class="allSlides fade">
+        <img src="./pics/5.jpg" style="width: 100%" />
+      </div>
+
+      <div class="allSlides fade">
+        <img src="./pics/6.jpg" style="width: 100%" />
+      </div>
+
+      <div class="allSlides fade">
+        <img src="./pics/7.jpg" style="width: 100%" />
+      </div>
+
+      <div class="allSlides fade">
+        <img src="./pics/8.jpg" style="width: 100%" />
+      </div>
+      <a class="prev" onclick="changeSlides(-1)">&lt;</a>
+      <a class="next" onclick="changeSlides(1)">&gt;</a>
     </div>
 
-    <script src="script.js"></script>
-  </body>
+    <hr />
+    <h1 style="color: #fff; margin-left: 4rem">Top Picks</h1>
+    <hr />
+
+    <div id="movies">
+
+    </div>
+  </main>
+
+  <!-- For Result from search list -->
+  <div class="container" id="Container">
+    <div class="result-container">
+      <div class="result-flex" id="result-flex">
+        <!-- movie information here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- For Favorite  -->
+  <div id="favContainer" class="favContainer">
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
 </html>
