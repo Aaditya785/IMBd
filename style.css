@@ -287,4 +287,6 @@ body::-webkit-scrollbar-thumb {
 
 .movie-brief-display:hover {
   box-shadow: 0px 0px 10px #fff;
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
 }
