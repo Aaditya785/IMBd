@@ -53,9 +53,9 @@ async function displayFav() {
   favContainer.innerHTML = " ";
 
   var IDd = new Set();
-  for (const i in localStorage) 
+  for (const i in sessionStorage) 
   {
-    IDd.add(localStorage.getItem(i));
+    IDd.add(sessionStorage.getItem(i));
   }
 
   for (const i of IDd.values()) 
@@ -82,7 +82,7 @@ async function displayFav() {
 }
 
 function removeFav(key){
-  localStorage.removeItem(key);
+  sessionStorage.removeItem(key);
   alert("\u2714 Removed From List!...")
   
   window.location.reload();
@@ -101,6 +101,7 @@ function findMovies() {
   let searchTerm = movieSearchBox.value.trim();
   if (searchTerm.length > 0) {
     searchList.classList.remove("hide-it");
+    main.style.opacity="0.1";
     loadMovies(searchTerm);
   } else {
     searchList.classList.add("hide-it");
@@ -220,7 +221,7 @@ async function displaymovie(res){
 //  End of Random Movies
 
 
-//  Setting The LocalStorage Logic (Favorite)
+//  Setting The sessionStorage Logic (Favorite)
 function addTofavorites() {
   let favBtns = document.querySelector(".favorite");
   favBtns.setAttribute("disabled", "");
@@ -228,10 +229,10 @@ function addTofavorites() {
 }
 
 function setGetLocal(name, id){
-  if(localStorage.getItem(name) == id){
+  if(sessionStorage.getItem(name) == id){
       alert("\u2716 Already There!...");
   }else{
-      localStorage.setItem(name, id);
+      sessionStorage.setItem(name, id);
       alert("\u2714 Added Successfully!...");
   }
   addTofavorites();
@@ -242,5 +243,6 @@ function setGetLocal(name, id){
 window.addEventListener("click", (event) => {
   if (event.target.className != "form-control") {
     searchList.classList.add("hide-it");
+    main.style.opacity="1"
   }
 });

@@ -24,11 +24,9 @@ body::-webkit-scrollbar-thumb {
 /* ------------------ For Search List (Header) ------------------ */
 .search-container {
   background-color: gray;
-  height: 50px;
   display: flex;
   position: fixed;
   z-index: 9;
-  border-radius: 0px 0px 50px 50px;
   width: 100%;
 }
 
@@ -154,11 +152,12 @@ body::-webkit-scrollbar-thumb {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 20px;
 }
 
 .movie {
   border: 2px solid #57428d;
-  width: 17%;
+  /* width: 17%; */
   margin: 5px;
   border-radius: 10px;
 }
@@ -218,6 +217,8 @@ body::-webkit-scrollbar-thumb {
 
 .slideshow-container {
   position: relative;
+  margin: auto;
+  width: 80%;
 }
 
 .prev,
@@ -287,7 +288,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .movie-brief-display:hover {
-  box-shadow: 0px 0px 10px #fff;
+  box-shadow: 0px 0px 10px #57428d;
   transform: scale(1.05);
   transition: all 0.2s ease-in-out;
 }
